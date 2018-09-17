@@ -16,6 +16,11 @@ class Form extends React.Component {
     this.setState({ [name]: value })
   }
 
+  componentDidMount() {
+    if (this.props.id)
+      this.setState({...this.props})
+  }
+
   render() {
     const { item, description, price } = this.state;
     return (

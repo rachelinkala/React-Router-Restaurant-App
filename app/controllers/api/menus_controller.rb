@@ -1,5 +1,5 @@
 class Api::MenusController < ApplicationController
-  before_action :set_menu, only [:show, :update, :destroy]
+  before_action :set_menu, only: [:show, :update, :destroy]
 
   def index
     render json: Menu.all
@@ -15,7 +15,7 @@ class Api::MenusController < ApplicationController
     if menu.save
       render json: menu
     else
-      render json: menu.errors, status: 422
+      render json: { errors: product.errors.full_messages.join(',')}, status: :unprocessable_entity
     end
   end
 

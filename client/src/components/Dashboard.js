@@ -8,16 +8,18 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     axios.get('/api/menus')
-      .then( res => this.setState({ menus: res.data }))
+      .then( res => { 
+        this.setState({ menus: res.data })
+      })
   }
 
   show() {
     let { menus } = this.state;
     return (
       <ul>
-        { menus.map( p =>
-          <li key={p.id}>
-            <Link to={`/menus/${p.id}`}>{p.name}</Link>
+        { menus.map( m =>
+          <li key={m.id}>
+            <Link to={`/menus/${m.id}`}>{m.item}</Link>
           </li>
           )
         }
@@ -30,9 +32,10 @@ class Dashboard extends React.Component {
   }
 
   submit = (menu) => {
-    const { menus } = this.state
+    let { menus } = this.state;
     axios.post('/api/menus', { menu } )
-      .then( res => this.setState({ menus: [res.date, ...menus ], showForm: false }) )
+      .then( res => this.setState({ menus: [{...res.data}, ...menus ], showForm: false }) )
+      .catch( e => console.log(e.response.data.errors) )
   }
 
   toggleForm = () => {
