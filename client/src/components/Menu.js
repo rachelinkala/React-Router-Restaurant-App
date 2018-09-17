@@ -16,7 +16,7 @@ class Menu extends React.Component {
     });
   }
 
-  submit = (product) => {
+  submit = (menu) => {
     axios.put(`/api/menus/${this.props.match.params.id}`, { menu })
       .then( res => this.setState({ menu: res.data, edit: false }) );
   }
